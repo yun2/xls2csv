@@ -30,7 +30,7 @@ def xls2csv(infilepath, outfile, sheetid=1, delimiter="\t", sheetdelimiter="####
         for sheetid in xrange(book.nsheets):
             sheet_to_csv(book, sheetid, writer)
             if sheetdelimiter and sheetid < book.nsheets - 1:
-                outfile.write(sheetdelimiter + "\r\n")
+                outfile.write(sheetdelimiter + "\n")
 
 
 def sheet_to_csv(book, sheetid, writer):
