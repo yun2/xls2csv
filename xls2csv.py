@@ -69,7 +69,7 @@ if __name__ == "__main__":
     parser.add_option("-s", "--sheet", dest="sheetid", default=1, type="int",
       help="sheet no to convert (0 for all sheets)")
     parser.add_option("-d", "--delimiter", dest="delimiter", default="\t",
-      help="delimiter - csv columns delimiter, 'tab' or 'x09' for tab (tab is default)")
+      help="delimiter - csv columns delimiter, 'comma' for comma and 'tab' or 'x09' for tab (tab is default)")
     parser.add_option("-p", "--sheetdelimiter", dest="sheetdelimiter", default="--------",
       help="sheets delimiter used to separate sheets, pass '' if you don't want delimiters (default '--------')")
     parser.add_option("-e", "--encoding", dest="encoding", default="utf-8",
