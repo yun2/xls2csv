@@ -7,6 +7,11 @@ import xlrd
 from optparse import OptionParser
 
 
+def show_number_of_sheets(infilepath):
+    book = xlrd.open_workbook(infilepath)
+    print book.nsheets
+
+
 def xls2csv(infilepath, outfile, sheetid=1, delimiter="\t", sheetdelimiter="--------", encoding="utf-8"):
     writer = csv.writer(outfile, quoting=csv.QUOTE_MINIMAL, delimiter=delimiter, lineterminator="\n")
 
@@ -64,11 +69,13 @@ if __name__ == "__main__":
     parser.add_option("-s", "--sheet", dest="sheetid", default=1, type="int",
       help="sheet no to convert (0 for all sheets)")
     parser.add_option("-d", "--delimiter", dest="delimiter", default="\t",
-      help="delimiter - csv columns delimiter, 'tab' or 'x09' for tab (comma is default)")
+      help="delimiter - csv columns delimiter, 'tab' or 'x09' for tab (tab is default)")
     parser.add_option("-p", "--sheetdelimiter", dest="sheetdelimiter", default="--------",
       help="sheets delimiter used to separate sheets, pass '' if you don't want delimiters (default '--------')")
     parser.add_option("-e", "--encoding", dest="encoding", default="utf-8",
       help="xls file encoding if the CODEPAGE record is missing")
+    parser.add_option("-n", "--number", action="store_true", dest="number", default=False,
+      help="show # of sheets and exit")
 
     (options, args) = parser.parse_args()
 
@@ -92,6 +99,11 @@ if __name__ == "__main__":
 
     if len(args) < 1:
         parser.print_help()
+    elif options.number:
+        show_number_of_sheets(args[0])
+        sys.exit()
+
+
     else:
         if len(args) > 1:
             outfile = open(args[1], 'w+')
