@@ -7,8 +7,8 @@ import xlrd
 from optparse import OptionParser
 
 
-def xls2csv(infilepath, outfile, sheetid=1, delimiter=",", sheetdelimiter="--------", encoding="cp1251"):
-    writer = csv.writer(outfile, dialect='excel', quoting=csv.QUOTE_ALL, delimiter=delimiter)
+def xls2csv(infilepath, outfile, sheetid=1, delimiter='\t', sheetdelimiter="--------", encoding="cp1251"):
+    writer = csv.writer(outfile, dialect='excel', quoting=csv.QUOTE_MINIMAL, delimiter=delimiter)
 
     book = xlrd.open_workbook(infilepath, encoding_override=encoding)
 
@@ -63,7 +63,7 @@ if __name__ == "__main__":
     parser = OptionParser(usage="%prog [options] infile [outfile]", version="0.1")
     parser.add_option("-s", "--sheet", dest="sheetid", default=1, type="int",
       help="sheet no to convert (0 for all sheets)")
-    parser.add_option("-d", "--delimiter", dest="delimiter", default=",",
+    parser.add_option("-d", "--delimiter", dest="delimiter", default="\t",
       help="delimiter - csv columns delimiter, 'tab' or 'x09' for tab (comma is default)")
     parser.add_option("-p", "--sheetdelimiter", dest="sheetdelimiter", default="--------",
       help="sheets delimiter used to separate sheets, pass '' if you don't want delimiters (default '--------')")
