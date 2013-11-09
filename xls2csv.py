@@ -7,7 +7,7 @@ import xlrd
 from optparse import OptionParser
 
 
-def xls2csv(infilepath, outfile, sheetid=1, delimiter='\t', sheetdelimiter="--------", encoding="cp1251"):
+def xls2csv(infilepath, outfile, sheetid=1, delimiter="\t", sheetdelimiter="--------", encoding="cp1251"):
     writer = csv.writer(outfile, dialect='excel', quoting=csv.QUOTE_MINIMAL, delimiter=delimiter)
 
     book = xlrd.open_workbook(infilepath, encoding_override=encoding)
