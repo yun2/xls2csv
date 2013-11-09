@@ -12,7 +12,7 @@ def show_number_of_sheets(infilepath):
     print book.nsheets
 
 
-def xls2csv(infilepath, outfile, sheetid=1, delimiter="\t", sheetdelimiter="--------", encoding="utf-8"):
+def xls2csv(infilepath, outfile, sheetid=1, delimiter="\t", sheetdelimiter="########", encoding="utf-8"):
     writer = csv.writer(outfile, quoting=csv.QUOTE_MINIMAL, delimiter=delimiter, lineterminator="\n")
 
     book = xlrd.open_workbook(infilepath, encoding_override=encoding)
@@ -70,8 +70,8 @@ if __name__ == "__main__":
       help="sheet no to convert (0 for all sheets)")
     parser.add_option("-d", "--delimiter", dest="delimiter", default="\t",
       help="delimiter - csv columns delimiter, 'comma' for comma and 'tab' or 'x09' for tab (tab is default)")
-    parser.add_option("-p", "--sheetdelimiter", dest="sheetdelimiter", default="--------",
-      help="sheets delimiter used to separate sheets, pass '' if you don't want delimiters (default '--------')")
+    parser.add_option("-p", "--sheetdelimiter", dest="sheetdelimiter", default="########",
+      help="sheets delimiter used to separate sheets, pass '' if you don't want delimiters (default '########')")
     parser.add_option("-e", "--encoding", dest="encoding", default="utf-8",
       help="xls file encoding if the CODEPAGE record is missing")
     parser.add_option("-n", "--number", action="store_true", dest="number", default=False,
