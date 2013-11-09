@@ -7,8 +7,8 @@ import xlrd
 from optparse import OptionParser
 
 
-def xls2csv(infilepath, outfile, sheetid=1, delimiter="\t", sheetdelimiter="--------", encoding="cp1251"):
-    writer = csv.writer(outfile, dialect='excel', quoting=csv.QUOTE_MINIMAL, delimiter=delimiter)
+def xls2csv(infilepath, outfile, sheetid=1, delimiter="\t", sheetdelimiter="--------", encoding="utf-8"):
+    writer = csv.writer(outfile, quoting=csv.QUOTE_MINIMAL, delimiter=delimiter, lineterminator="\n")
 
     book = xlrd.open_workbook(infilepath, encoding_override=encoding)
 
@@ -19,7 +19,7 @@ def xls2csv(infilepath, outfile, sheetid=1, delimiter="\t", sheetdelimiter="----
         for sheetid in xrange(book.nsheets):
             sheet_to_csv(book, sheetid, writer)
             if sheetdelimiter and sheetid < book.nsheets - 1:
-                outfile.write(sheetdelimiter + "\r\n")
+                outfile.write(sheetdelimiter + "\n")
 
 
 def sheet_to_csv(book, sheetid, writer):
@@ -67,7 +67,7 @@ if __name__ == "__main__":
       help="delimiter - csv columns delimiter, 'tab' or 'x09' for tab (comma is default)")
     parser.add_option("-p", "--sheetdelimiter", dest="sheetdelimiter", default="--------",
       help="sheets delimiter used to separate sheets, pass '' if you don't want delimiters (default '--------')")
-    parser.add_option("-e", "--encoding", dest="encoding", default="cp1251",
+    parser.add_option("-e", "--encoding", dest="encoding", default="utf-8",
       help="xls file encoding if the CODEPAGE record is missing")
 
     (options, args) = parser.parse_args()
