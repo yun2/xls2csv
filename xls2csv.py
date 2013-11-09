@@ -22,15 +22,15 @@ def xls2csv(infilepath, outfile, sheetid=1, delimiter="\t", sheetdelimiter="####
         sheet_to_csv(book, sheetid - 1, writer)
     elif sheetid == 0:
         for sheetid in xrange(book.nsheets):
+            sheet_to_csv(book, sheetid, writer)
+            if sheetdelimiter and sheetid < book.nsheets - 1:
+                outfile.write(sheetdelimiter + "\n")
+    else:
+        for sheetid in xrange(book.nsheets):
             outfile = open(book.sheet_by_index(sheetid).name+".csv", 'w+')
             writer = csv.writer(outfile, quoting=csv.QUOTE_MINIMAL, delimiter=delimiter, lineterminator="\n")
             sheet_to_csv(book, sheetid, writer)
             outfile.close()
-    else:
-        for sheetid in xrange(book.nsheets):
-            sheet_to_csv(book, sheetid, writer)
-            if sheetdelimiter and sheetid < book.nsheets - 1:
-                outfile.write(sheetdelimiter + "\n")
 
 
 def sheet_to_csv(book, sheetid, writer):
@@ -73,7 +73,7 @@ def sheet_to_csv(book, sheetid, writer):
 if __name__ == "__main__":
     parser = OptionParser(usage="%prog [options] infile [outfile]", version="0.1")
     parser.add_option("-s", "--sheet", dest="sheetid", default=1, type="int",
-      help="sheet no to convert (0: convert each sheet to sheet-name.csv file, -1: for all sheets)")
+      help="sheet no to convert (-1: convert each sheet to sheet-name.csv file, 0: for all sheets)")
     parser.add_option("-d", "--delimiter", dest="delimiter", default="\t",
       help="delimiter - csv columns delimiter, 'comma' for comma and 'tab' or 'x09' for tab (tab is default)")
     parser.add_option("-p", "--sheetdelimiter", dest="sheetdelimiter", default="########",
